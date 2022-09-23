@@ -18,9 +18,9 @@ describe('Testa downvote', () => {
       cy.request("GET", `http://localhost:5000/e2e/${recommendation.name}`).then(res => {
         cy.intercept("POST", `/recommendations/${res.body.id}/downvote`).as("downvote");
 
-        cy.get("#downvote").click();
+        cy.get("[data-test-id='downvote']").click();
         cy.wait("@downvote");
-        cy.get("#votes").should("contain.text", `${res.body.score - 1}`);
+        cy.get("[data-test-id='votes']").should("contain.text", `${res.body.score - 1}`);
       });
     });
   });
@@ -39,7 +39,7 @@ describe('Testa downvote', () => {
         cy.intercept("POST", `/recommendations/${res.body.id}/downvote`).as("downvote");
         
         for(let i = 0; i <= 5; i++) {
-          cy.get("#downvote").click();
+          cy.get("[data-test-id='downvote']").click();
           cy.wait("@downvote");
         }
 

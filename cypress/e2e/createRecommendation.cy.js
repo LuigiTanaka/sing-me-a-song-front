@@ -5,7 +5,7 @@ beforeEach(async () => {
 });
 
 describe('Testa postagem de uma nova recomendação', () => {
-  it('Testa caso de sucesso', () => {
+  it('Testa se a recomendação é criada e aparece com sucesso', () => {
     const recommendation = {
       name: faker.lorem.words(4),
       youtubeLink: "https://www.youtube.com/watch?v=chwyjJbcs1Y"
@@ -17,7 +17,7 @@ describe('Testa postagem de uma nova recomendação', () => {
 
     cy.intercept("POST", "/recommendations").as("createRecommendation");
 
-    cy.get("#button").click();
+    cy.get("[data-test-id='button']").click();
 
     cy.wait("@createRecommendation");
 

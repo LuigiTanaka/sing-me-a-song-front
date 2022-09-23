@@ -15,12 +15,12 @@ export default function Menu() {
         Home
       </MenuItem>
 
-      <MenuItem onClick={() => navigate("/top")}>
+      <MenuItem data-test-id="top" onClick={() => navigate("/top")}>
         <HiTrendingUp />
         Top
       </MenuItem>
 
-      <MenuItem onClick={() => navigate("/random")}>
+      <MenuItem data-test-id="random" onClick={() => navigate("/random")}>
         <FiShuffle />
         Random
       </MenuItem>

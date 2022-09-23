@@ -18,9 +18,9 @@ describe('Testa upvote', () => {
       cy.request("GET", `http://localhost:5000/e2e/${recommendation.name}`).then(res => {
         cy.intercept("POST", `/recommendations/${res.body.id}/upvote`).as("upvote");
 
-        cy.get("#upvote").click();
+        cy.get("[data-test-id='upvote']").click();
         cy.wait("@upvote");
-        cy.get("#votes").should("contain.text", `${res.body.score + 1}`);
+        cy.get("[data-test-id='votes']").should("contain.text", `${res.body.score + 1}`);
       });
     });
   });
