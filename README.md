@@ -1,70 +1,147 @@
-# Getting Started with Create React App
+# projeto21-sing me a song (frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Descrição
 
-In the project directory, you can run:
+Aplicação dos conceitos de testes aprendidos em aula em uma aplicação de recomendações de músicas.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Testes realizados
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Testes e2e utilizando cypress
+-   Testa postagem de uma nova recomendação: testa se a recomendação é criada e aparece com sucesso
+-   Testa downvote: testa caso de sucesso
+-   Testa downvote: testa se a recomendação é excluida ao ultrapassar -5 votos
+-   Testa upvote: testa caso de sucesso
+-   Testa GET /recommendations: Testa se aparece o numero correto de recomendações
+-   Testa GET /recommendations/random: testa se é direcionado pra rota correta e se aparece uma única recomendação
+-   Testa GET /recommendations/top/:amount: Testa se é direcionado pra rota correta e se aparece o número correto de recomendações
 
-### `npm test`
+</br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Rodar localmente
 
-### `npm run build`
+Clone o projeto
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+  git clone https://github.com/LuigiTanaka/sing-me-a-song-front.git
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Vá até a pasta do projeto
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+  cd sing-me-a-song-front/
+```
 
-### `npm run eject`
+Instale as dependências
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+  npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Rode o comando 
+```bash
+  npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Variáveis de ambiente
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Para rodar esse projeto, você vai precisar adicionar a seguinte variável de ambiente no seu arquivo .env
 
-## Learn More
+`REACT_APP_API_BASE_URL= url da porta onde está rodando o backend #http://localhost:5000`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+</br>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Realizar testes
+Para realizar os testes, será necessário deixar rodando tanto o front-end quanto o back-end
 
-### Code Splitting
+### Front-end
+Na pasta correspondente ao front-end, rode o comando
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+  npm start
+```
 
-### Analyzing the Bundle Size
+### Back-end
+Na pasta correspondente ao back-end, rode o comando
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+  npm run dev
+```
 
-### Making a Progressive Web App
+### Testes e2e
+Para realizar os testes e2e, será necessário inicializar o cypress pelo comando
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+  npx cypress open
+```
 
-### Advanced Configuration
+Feito isso, basta seguir os seguintes passos:
+-   Selecione a opção E2E Testing
+-   Escolha o browser que preferir (recomendação: Electron)
+-   Por fim, selecione os arquivos correspondentes aos testes que deseja realizar
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+## API Reference
+Para a criação dos testes, foi necessária também a criação de rotas no back-end para auxiliar na verificação das respostas esperadas.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Rota para limpar o banco de dados
+
+```http
+POST /e2e/reset
+```
+
+### Rota para obter uma recomendação pelo nome
+
+```http
+GET /e2e/:name
+```
+
+#### Request:
+
+| Params      | Tipo      | Descrição      |
+| :---------- | :-------- | :-------------------- |
+| `name` | `string` | nome da recomendação desejada |
+
+####
+
+</br>
+
+#### Response:
+
+```json
+{
+  "id": 1
+  "name": "nome da recomendação",
+  "youtubeLink": "https://www.youtube.com/watch?v=chwyjJbcs1Y",
+  "score": 0
+}
+```
+
+#
+
+### Rota para criar um número aleatório (entre 0 e 15) recomendações
+
+```http
+POST /e2e/create
+```
+
+#### Response:
+
+```json
+{
+  "numberOfCreatedRecommendations": 10
+}
+```
+
+#
+
+
+</br>
+
+## Autor
+
+-   Luigi Tanaka, estudante da Driven Education 
+<br/>
